@@ -1,3 +1,4 @@
+import 'package:ecohopv1/pages/landing.dart';
 import 'package:flutter/material.dart';
 import 'package:ecohopv1/pages/home.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: HomePage(),
+      home: LandingPage(),
     );
   }
 }
