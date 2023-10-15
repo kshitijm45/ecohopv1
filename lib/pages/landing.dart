@@ -77,6 +77,7 @@ class _LandingPageState extends State<LandingPage> {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const HomePage()));
+                print("pressed");
               },
               child: const Text('Skip'),
             )

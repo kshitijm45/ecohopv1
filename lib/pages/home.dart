@@ -1,3 +1,4 @@
+import 'package:ecohopv1/pages/walking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -206,7 +207,13 @@ class HomePage extends StatelessWidget {
           Row(
             children: [
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WalkingPage()),
+                    );
+                    //print("clicked");
+                  },
                   child: Container(
                     margin: EdgeInsets.only(left: 70, top: 56),
                     width: 76,

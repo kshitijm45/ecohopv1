@@ -1,4 +1,5 @@
 import 'package:ecohopv1/pages/landing.dart';
+import 'package:ecohopv1/pages/walking.dart';
 import 'package:flutter/material.dart';
 import 'package:ecohopv1/pages/home.dart';
 
