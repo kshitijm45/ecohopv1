@@ -13,11 +13,11 @@ class WalkingPageState extends State<WalkingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      backgroundColor: Color(0xFFD8F3DC),
+      backgroundColor: const Color(0xFFD8F3DC),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
@@ -27,7 +27,7 @@ class WalkingPageState extends State<WalkingPage> {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0xff1D1617).withOpacity(0.11),
+                          color: const Color(0xff1D1617).withOpacity(0.11),
                           blurRadius: 40,
                           spreadRadius: 0.0,
                         )
@@ -42,15 +42,16 @@ class WalkingPageState extends State<WalkingPage> {
                           borderSide: BorderSide.none,
                         ),
                         contentPadding:
-                            EdgeInsets.only(left: 20, right: 20, top: 15),
+                            const EdgeInsets.only(left: 20, right: 20, top: 15),
                         hintText: 'Enter KM travelled',
-                        hintStyle: TextStyle(color: Colors.black, fontSize: 12),
+                        hintStyle:
+                            const TextStyle(color: Colors.black, fontSize: 12),
                         suffixIcon: Container(
                           width: 100,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              VerticalDivider(
+                              const VerticalDivider(
                                 color: Colors.black,
                                 indent: 10,
                                 endIndent: 10,
@@ -58,8 +59,8 @@ class WalkingPageState extends State<WalkingPage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(12.0),
-                                child:
-                                    SvgPicture.asset('assets/icons/_Close.svg'),
+                                child: SvgPicture.asset(
+                                    'assets/icons/walking.svg'),
                               ),
                             ],
                           ),
@@ -68,20 +69,20 @@ class WalkingPageState extends State<WalkingPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                     width:
                         10), // Add spacing between the TextField and the button
                 ElevatedButton(
                   onPressed: () {
                     // Handle button press
                   },
-                  child: Text('Enter'),
+                  child: const Text('Enter'),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 25, top: 20),
+          const Padding(
+            padding: EdgeInsets.only(left: 25, top: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -119,18 +120,16 @@ class WalkingPageState extends State<WalkingPage> {
       leading: GestureDetector(
         onTap: () {},
         child: Container(
+          height: 500,
+          width: 500,
           margin: const EdgeInsets.all(10),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: const Color(0xFFF5E7E0),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: SvgPicture.asset(
-            'assets/icons/Vector.svg',
-            alignment: Alignment.topLeft,
-            height: 55,
-            width: 35,
-          ),
+          child: SvgPicture.asset('assets/icons/walking.svg',
+              alignment: Alignment.topLeft, fit: BoxFit.scaleDown),
         ),
       ),
     );

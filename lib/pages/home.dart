@@ -1,4 +1,3 @@
-import 'package:ecohopv1/pages/walking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -208,14 +207,10 @@ class HomePage extends StatelessWidget {
             children: [
               GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => WalkingPage()),
-                    );
-                    //print("clicked");
+                    Navigator.pushNamed(context, '/walk');
                   },
                   child: Container(
-                    margin: EdgeInsets.only(left: 70, top: 56),
+                    margin: const EdgeInsets.only(left: 70, top: 56),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(
@@ -228,7 +223,7 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                   onTap: () {},
                   child: Container(
-                    margin: EdgeInsets.only(left: 20, top: 56),
+                    margin: const EdgeInsets.only(left: 20, top: 56),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(
@@ -239,9 +234,11 @@ class HomePage extends StatelessWidget {
                         height: 7, width: 7, fit: BoxFit.scaleDown),
                   )),
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/car');
+                  },
                   child: Container(
-                    margin: EdgeInsets.only(left: 20, top: 56),
+                    margin: const EdgeInsets.only(left: 20, top: 56),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(
@@ -258,7 +255,7 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                   onTap: () {},
                   child: Container(
-                    margin: EdgeInsets.only(left: 115, top: 25),
+                    margin: const EdgeInsets.only(left: 115, top: 25),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(
@@ -271,7 +268,7 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                   onTap: () {},
                   child: Container(
-                    margin: EdgeInsets.only(top: 25, left: 21),
+                    margin: const EdgeInsets.only(top: 25, left: 21),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(

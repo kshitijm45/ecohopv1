@@ -43,7 +43,7 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD8F3DC),
+      backgroundColor: const Color(0xFFD8F3DC),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,9 +75,7 @@ class _LandingPageState extends State<LandingPage> {
                   ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
-                print("pressed");
+                Navigator.pushNamed(context, '/home');
               },
               child: const Text('Skip'),
             )
