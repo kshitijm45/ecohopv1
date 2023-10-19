@@ -1,18 +1,17 @@
-import 'package:ecohopv1/pages/walking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class HomeNewPage extends StatelessWidget {
-  const HomeNewPage({super.key, required this.email});
+  const HomeNewPage({super.key, required this.username});
 
-  final String email;
+  final String username;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 124, 234, 183),
         appBar: AppBar(
-          title: Text('Hi $email',
+          title: Text('Hi $username',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 25,
@@ -210,9 +209,9 @@ class HomeNewPage extends StatelessWidget {
             children: [
               GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(builder: (context) => WalkingPage()),
+                      "/walk",
                     );
                     //print("clicked");
                   },
@@ -241,7 +240,12 @@ class HomeNewPage extends StatelessWidget {
                         height: 7, width: 7, fit: BoxFit.scaleDown),
                   )),
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      "/car",
+                    );
+                  },
                   child: Container(
                     margin: EdgeInsets.only(left: 20, top: 56),
                     width: 76,

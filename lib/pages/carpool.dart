@@ -28,9 +28,11 @@ class _CarpoolPageState extends State<CarpoolPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: appBar(),
         backgroundColor: const Color(0xFFD8F3DC),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
