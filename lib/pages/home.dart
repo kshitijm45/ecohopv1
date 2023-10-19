@@ -1,15 +1,18 @@
+import 'package:ecohopv1/pages/walking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomeNewPage extends StatelessWidget {
+  const HomeNewPage({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 124, 234, 183),
         appBar: AppBar(
-          title: const Text('Hi Kshitij',
+          title: Text('Hi $email',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 25,
@@ -207,10 +210,14 @@ class HomePage extends StatelessWidget {
             children: [
               GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/walk');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WalkingPage()),
+                    );
+                    //print("clicked");
                   },
                   child: Container(
-                    margin: const EdgeInsets.only(left: 70, top: 56),
+                    margin: EdgeInsets.only(left: 70, top: 56),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(
@@ -223,7 +230,7 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                   onTap: () {},
                   child: Container(
-                    margin: const EdgeInsets.only(left: 20, top: 56),
+                    margin: EdgeInsets.only(left: 20, top: 56),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(
@@ -234,11 +241,9 @@ class HomePage extends StatelessWidget {
                         height: 7, width: 7, fit: BoxFit.scaleDown),
                   )),
               GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/car');
-                  },
+                  onTap: () {},
                   child: Container(
-                    margin: const EdgeInsets.only(left: 20, top: 56),
+                    margin: EdgeInsets.only(left: 20, top: 56),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(
@@ -255,7 +260,7 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                   onTap: () {},
                   child: Container(
-                    margin: const EdgeInsets.only(left: 115, top: 25),
+                    margin: EdgeInsets.only(left: 115, top: 25),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(
@@ -268,7 +273,7 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                   onTap: () {},
                   child: Container(
-                    margin: const EdgeInsets.only(top: 25, left: 21),
+                    margin: EdgeInsets.only(top: 25, left: 21),
                     width: 76,
                     height: 68,
                     decoration: const BoxDecoration(

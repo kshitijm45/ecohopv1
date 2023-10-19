@@ -17,8 +17,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: "/land",
       routes: {
-        "/land": (context) => const LandingPage(),
-        "/home": (context) => const HomePage(),
+        "/land": (context) => const LandingNewPage(),
+        "/home": (context) => const HomeNewPage(
+              email: '',
+            ),
         "/walk": (context) => const WalkingPage(),
         "/car": (context) => const CarpoolPage(),
       },
