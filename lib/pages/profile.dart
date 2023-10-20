@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecohopv1/pages/home.dart';
 import 'package:ecohopv1/pages/leaderboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,17 +22,37 @@ class _ProfilePageState extends State<ProfilePage> {
   String username;
   File? profilepic;
   String uid = FirebaseAuth.instance.currentUser!.uid;
+  String piclink = "";
+
   _ProfilePageState({required this.username});
-  void sameImage() async {
-    if (profilepic != null) {
-      UploadTask uploadTask = FirebaseStorage.instance
-          .ref()
-          .child("profilepictures")
-          .child(Uuid().v1())
-          .putFile(profilepic!);
-      TaskSnapshot taskSnapshot = await uploadTask;
-      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    }
+  void initState() {
+    super.initState();
+    asyncfunction();
+  }
+
+  void asyncfunction() async {
+    DocumentSnapshot documentSnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    setState(() {
+      piclink = documentSnapshot['profilepic'];
+    });
+  }
+
+  void sameImage(XFile selectedImage) async {
+    UploadTask uploadTask = FirebaseStorage.instance
+        .ref()
+        .child("profilepictures")
+        .child(Uuid().v1())
+        .putFile(File(selectedImage.path));
+    TaskSnapshot taskSnapshot = await uploadTask;
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid)
+        .update({"profilepic": downloadUrl});
+    setState(() {
+      piclink = downloadUrl;
+    });
   }
 
   @override
@@ -99,26 +120,54 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 120, top: 70),
-                child: CupertinoButton(
-                  onPressed: () async {
-                    XFile? selectedImage = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
-                    if (selectedImage != null) {
-                      File convertedFile = File(selectedImage.path);
-                      setState(() {
-                        profilepic = convertedFile;
-                      });
-                    }
-                  },
-                  padding: EdgeInsets.zero,
-                  child: CircleAvatar(
-                    radius: 75,
-                    backgroundImage:
-                        (profilepic != null) ? FileImage(profilepic!) : null,
-                    backgroundColor: Colors.grey,
-                  ),
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: null,
                 ),
+                margin: EdgeInsets.only(left: 100, top: 70),
+                child: CupertinoButton(
+                    onPressed: () async {
+                      XFile? selectedImage = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                      if (selectedImage != null) {
+                        sameImage(selectedImage);
+                      }
+                    },
+                    padding: EdgeInsets.zero,
+                    child: ClipOval(
+                      child: Image.network(
+                        piclink,
+                        width: 150,
+                        height: 150,
+                        fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object error,
+                            StackTrace? stackTrace) {
+                          return CircleAvatar(
+                            radius: 75,
+                            backgroundColor: Colors.grey,
+                          );
+                        },
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        (loadingProgress.expectedTotalBytes ??
+                                            1)
+                                    : null,
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    )),
               ),
               const Positioned(
                 left: 29,

@@ -61,14 +61,10 @@ class _SignUpPageState extends State<SignUpPage> {
   void saveUser() {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     String username = usernameController.text.trim();
-    Map<String, dynamic> userData = {
-      "username": username,
-      "points": 0,
-    };
-    FirebaseFirestore.instance.collection("users").doc(uid).set({
-      "username": username,
-      "points": 0,
-    });
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid)
+        .set({"username": username, "points": 0, "profilepic": ""});
     log("useradded");
   }
 
