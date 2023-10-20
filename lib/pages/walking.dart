@@ -46,6 +46,7 @@ class _WalkingPageState extends State<WalkingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: appBar(),
       backgroundColor: Color(0xFFD8F3DC),
       body: Column(

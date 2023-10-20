@@ -1,6 +1,13 @@
+import 'dart:io';
+
 import 'package:ecohopv1/pages/home.dart';
 import 'package:ecohopv1/pages/leaderboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class ProfilePage extends StatefulWidget {
   final String username;
@@ -12,7 +19,21 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String username;
+  File? profilepic;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   _ProfilePageState({required this.username});
+  void sameImage() async {
+    if (profilepic != null) {
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref()
+          .child("profilepictures")
+          .child(Uuid().v1())
+          .putFile(profilepic!);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +96,28 @@ class _ProfilePageState extends State<ProfilePage> {
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(color: Colors.black.withOpacity(0)),
                   child: const Stack(children: []),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 120, top: 70),
+                child: CupertinoButton(
+                  onPressed: () async {
+                    XFile? selectedImage = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    if (selectedImage != null) {
+                      File convertedFile = File(selectedImage.path);
+                      setState(() {
+                        profilepic = convertedFile;
+                      });
+                    }
+                  },
+                  padding: EdgeInsets.zero,
+                  child: CircleAvatar(
+                    radius: 75,
+                    backgroundImage:
+                        (profilepic != null) ? FileImage(profilepic!) : null,
+                    backgroundColor: Colors.grey,
+                  ),
                 ),
               ),
               const Positioned(
@@ -276,22 +319,33 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      const Positioned(
+                      Positioned(
                         left: 99,
                         top: 6,
-                        child: SizedBox(
-                          width: 127,
-                          height: 29,
-                          child: Text(
-                            'Your Details',
-                            style: TextStyle(
-                              color: Color(0xFF484444),
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                              height: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.person,
+                              color: Colors.black,
                             ),
-                          ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            SizedBox(
+                              width: 127,
+                              height: 29,
+                              child: Text(
+                                'Your Details',
+                                style: TextStyle(
+                                  color: Color(0xFF484444),
+                                  fontSize: 20,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Positioned(
@@ -346,19 +400,30 @@ class _ProfilePageState extends State<ProfilePage> {
                       const Positioned(
                         left: 99,
                         top: 13,
-                        child: SizedBox(
-                          width: 171,
-                          height: 38,
-                          child: Text(
-                            'Notifications',
-                            style: TextStyle(
-                              color: Color(0xFF484444),
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                              height: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.notifications,
+                              color: Colors.black,
                             ),
-                          ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            SizedBox(
+                              width: 171,
+                              height: 38,
+                              child: Text(
+                                'Notifications',
+                                style: TextStyle(
+                                  color: Color(0xFF484444),
+                                  fontSize: 20,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Positioned(
@@ -432,19 +497,30 @@ class _ProfilePageState extends State<ProfilePage> {
                       const Positioned(
                         left: 106,
                         top: 9,
-                        child: SizedBox(
-                          width: 97,
-                          height: 39,
-                          child: Text(
-                            'Log Out',
-                            style: TextStyle(
-                              color: Color(0xFF484444),
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                              height: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: Colors.black,
                             ),
-                          ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            SizedBox(
+                              width: 97,
+                              height: 39,
+                              child: Text(
+                                'Log Out',
+                                style: TextStyle(
+                                  color: Color(0xFF484444),
+                                  fontSize: 20,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Positioned(
@@ -485,19 +561,30 @@ class _ProfilePageState extends State<ProfilePage> {
                       const Positioned(
                         left: 109,
                         top: 7,
-                        child: SizedBox(
-                          width: 106,
-                          height: 29,
-                          child: Text(
-                            'Privacy',
-                            style: TextStyle(
-                              color: Color(0xFF484444),
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                              height: 0,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.lock,
+                              color: Colors.black,
                             ),
-                          ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            SizedBox(
+                              width: 106,
+                              height: 29,
+                              child: Text(
+                                'Privacy',
+                                style: TextStyle(
+                                  color: Color(0xFF484444),
+                                  fontSize: 20,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Positioned(

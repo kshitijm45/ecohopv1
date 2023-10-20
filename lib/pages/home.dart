@@ -13,14 +13,14 @@ class HomeNewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 124, 234, 183),
+        backgroundColor: const Color(0xFFD8F3DC),
         appBar: AppBar(
           title: Text('Hi $username',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 25,
               )),
-          backgroundColor: const Color.fromARGB(255, 124, 234, 183),
+          backgroundColor: const Color(0xFFF5E7E0),
           elevation: 0,
           actions: [
             GestureDetector(
@@ -30,7 +30,7 @@ class HomeNewPage extends StatelessWidget {
                 width: 30,
                 height: 30,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 124, 234, 183),
+                  color: const Color(0xFFF5E7E0),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: SvgPicture.asset(
@@ -47,7 +47,7 @@ class HomeNewPage extends StatelessWidget {
                   width: 30,
                   height: 30,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 124, 234, 183),
+                    color: const Color(0xFFF5E7E0),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: SvgPicture.asset('assets/icons/bell.svg',

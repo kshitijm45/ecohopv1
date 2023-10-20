@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecohopv1/pages/carpool.dart';
 import 'package:ecohopv1/pages/cycling.dart';
 import 'package:ecohopv1/pages/landing.dart';

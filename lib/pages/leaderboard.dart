@@ -36,19 +36,10 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                         Map<String, dynamic> userMap =
                             snapshot.data!.docs[index].data()
                                 as Map<String, dynamic>;
-                        return DataTable(
-                          columns: [
-                            DataColumn(label: Text('Rank')),
-                            DataColumn(label: Text('Username')),
-                            DataColumn(label: Text('Points')),
-                          ],
-                          rows: [
-                            DataRow(cells: [
-                              DataCell(Text((index + 1).toString())),
-                              DataCell(Text(userMap["username"])),
-                              DataCell(Text(userMap["points"].toString())),
-                            ]),
-                          ],
+                        return ListTile(
+                          leading: Text((index + 1).toString()),
+                          title: Text(userMap["username"]),
+                          trailing: Text(userMap["points"].toString()),
                         );
                       },
                     ));
@@ -101,7 +92,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: false,
         showSelectedLabels: true,
-        currentIndex: 0,
+        currentIndex: 1,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.person, color: Color(0xFF0a0908)),
