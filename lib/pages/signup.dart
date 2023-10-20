@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecohopv1/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
       try {
         UserCredential usercredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
-        if (usercredential != null) {
+        if (usercredential.user != null) {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -44,6 +45,16 @@ class _SignUpPageState extends State<SignUpPage> {
         log(ex.code.toString());
       }
     }
+  }
+
+  void saveUser() {
+    String username = usernameController.text.trim();
+    Map<String, dynamic> userData = {
+      "username": username,
+      "points": 0,
+    };
+    FirebaseFirestore.instance.collection("users").add(userData);
+    log("useradded");
   }
 
   @override
@@ -157,27 +168,27 @@ class _SignUpPageState extends State<SignUpPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
                 child: ElevatedButton(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Sign Up'), // <-- Text
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Icon(
-                        // <-- Icon
-                        Icons.login,
-                        size: 24.0,
-                      ),
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown, // Background color
-                  ),
-                  onPressed: () {
-                    createAccount();
-                  },
-                ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Sign Up'), // <-- Text
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          // <-- Icon
+                          Icons.login,
+                          size: 24.0,
+                        ),
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown, // Background color
+                    ),
+                    onPressed: () {
+                      saveUser();
+                      createAccount();
+                    }),
               ),
             ],
           ),
@@ -190,7 +201,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return AppBar(
       toolbarHeight: 100,
       title: const Text(
-        'Login',
+        'Sign Up',
         style: TextStyle(
           color: Colors.white,
           fontSize: 30,

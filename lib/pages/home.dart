@@ -1,3 +1,5 @@
+import 'package:ecohopv1/pages/cycling.dart';
+import 'package:ecohopv1/pages/walking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -209,9 +211,12 @@ class HomeNewPage extends StatelessWidget {
             children: [
               GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
+                    Navigator.push(
                       context,
-                      "/walk",
+                      MaterialPageRoute(
+                          builder: (context) => WalkingPage(
+                                username: username,
+                              )),
                     );
                     //print("clicked");
                   },
@@ -227,7 +232,15 @@ class HomeNewPage extends StatelessWidget {
                         height: 7, width: 7, fit: BoxFit.scaleDown),
                   )),
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CyclingPage(
+                                username: username,
+                              )),
+                    );
+                  },
                   child: Container(
                     margin: EdgeInsets.only(left: 20, top: 56),
                     width: 76,

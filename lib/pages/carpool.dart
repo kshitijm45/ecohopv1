@@ -254,6 +254,11 @@ class _CarpoolPageState extends State<CarpoolPage> {
               label: 'Share',
             )
           ],
+          onTap: (int index) {
+            if (index == 2) {
+              Navigator.pop(context);
+            }
+          },
         ));
   }
 

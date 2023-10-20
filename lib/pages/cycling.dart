@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unused_import, duplicate_import, unused_local_variable
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unused_import, duplicate_import
 
 import 'dart:developer';
 
@@ -10,18 +10,19 @@ import 'package:ecohopv1/pages/home.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class WalkingPage extends StatefulWidget {
+class CyclingPage extends StatefulWidget {
   final String username;
-  const WalkingPage({super.key, required this.username});
+  const CyclingPage({super.key, required this.username});
+
   @override
-  State<WalkingPage> createState() => _WalkingPageState(username: username);
+  State<CyclingPage> createState() => _CyclingPageState(username: username);
 }
 
-class _WalkingPageState extends State<WalkingPage> {
+class _CyclingPageState extends State<CyclingPage> {
   TextEditingController myController = TextEditingController();
   String displayedMessage = ' ';
   String username;
-  _WalkingPageState({required this.username});
+  _CyclingPageState({required this.username});
   void update(int data) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection("users") // Replace with your actual collection name
@@ -113,7 +114,7 @@ class _WalkingPageState extends State<WalkingPage> {
 
                     if (regExp.hasMatch(userInput)) {
                       int number = int.parse(userInput);
-                      int output = number * 4;
+                      int output = number * 6;
                       update(output);
                       String customMessage = '$output points!';
 
@@ -150,7 +151,6 @@ class _WalkingPageState extends State<WalkingPage> {
                 ),
                 SvgPicture.asset(
                   'assets/icons/map (1).svg',
-                  //width: 10,
                   height: 218,
                 ),
               ],
@@ -166,7 +166,7 @@ class _WalkingPageState extends State<WalkingPage> {
     return AppBar(
       toolbarHeight: 100,
       title: const Text(
-        'Walking Goals',
+        'Cycling Goals',
         style: TextStyle(
           color: Colors.black,
           fontSize: 20,
@@ -186,10 +186,10 @@ class _WalkingPageState extends State<WalkingPage> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: SvgPicture.asset(
-            'assets/icons/walking.svg', // Provide the correct path to your SVG file
+            'assets/icons/bicycle.svg',
             alignment: Alignment.centerRight,
-            height: 55,
-            width: 35,
+            height: 100,
+            width: 100,
           ),
         ),
       ),

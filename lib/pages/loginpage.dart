@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ecohopv1/pages/forgotpassword.dart';
 import 'package:ecohopv1/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,9 @@ class _LoginPageState extends State<LoginPage> {
     String password = passwordController.text.trim();
 
     if (email == "" || password == "")
-      log("Please fill all the details");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter details')),
+      );
     else {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
@@ -37,7 +40,9 @@ class _LoginPageState extends State<LoginPage> {
           );
         }
       } on FirebaseAuthException catch (ex) {
-        log(ex.code.toString());
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Invalid credentials")),
+        );
       }
     }
   }
@@ -46,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Center(
         child: Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFD8F3DC),
       appBar: appBar(),
       body: Form(
@@ -148,6 +154,30 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {
                     login();
+                  },
+                ),
+              ),
+              Container(
+                width: 300,
+                height: 75,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
+                child: TextButton(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Forgot Password'), // <-- Text
+                      SizedBox(
+                        width: 5,
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ForgotPasswordPage()),
+                    );
                   },
                 ),
               ),
