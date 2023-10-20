@@ -23,23 +23,34 @@ class _SignUpPageState extends State<SignUpPage> {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String cpassword = cpasswordController.text.trim();
-
+    String username = usernameController.text.trim();
     if (email == "" || password == "" || cpassword == "")
       log("Please fill all the details");
     else if (password != cpassword)
       log("Passwords don't match");
     else {
       try {
-        UserCredential usercredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-        if (usercredential.user != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomeNewPage(
-                      username: usernameController.text,
-                    )),
-          );
+        QuerySnapshot usernameCheck = await FirebaseFirestore.instance
+            .collection("users")
+            .where("username", isEqualTo: username)
+            .get();
+
+        if (usernameCheck.docs.isNotEmpty) {
+          log("Username already exists");
+        } else {
+          // Create user if username is unique
+          UserCredential userCredential = await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email, password: password);
+
+          if (userCredential.user != null) {
+            saveUser(); // Save user data to Firestore
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeNewPage(username: username),
+              ),
+            );
+          }
         }
       } on FirebaseAuthException catch (ex) {
         log(ex.code.toString());
@@ -186,7 +197,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       backgroundColor: Colors.brown, // Background color
                     ),
                     onPressed: () {
-                      saveUser();
                       createAccount();
                     }),
               ),

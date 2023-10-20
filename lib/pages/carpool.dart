@@ -1,17 +1,22 @@
+import 'package:ecohopv1/pages/home.dart';
+import 'package:ecohopv1/pages/leaderboard.dart';
+import 'package:ecohopv1/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CarpoolPage extends StatefulWidget {
-  const CarpoolPage({super.key});
+  final String username;
+  const CarpoolPage({super.key, required this.username});
 
   @override
-  State<CarpoolPage> createState() => _CarpoolPageState();
+  State<CarpoolPage> createState() => _CarpoolPageState(username: username);
 }
 
 class _CarpoolPageState extends State<CarpoolPage> {
   final people = ['1', '2', '3', '4', '5', '6'];
   final cartype = ['Mini', 'Sedan', 'SUV'];
-
+  String username;
+  _CarpoolPageState({required this.username});
   String? val;
 
   String? vals;
@@ -225,41 +230,61 @@ class _CarpoolPageState extends State<CarpoolPage> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.brown,
-          selectedItemColor: Colors.black,
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: false,
-          showSelectedLabels: true,
-          currentIndex: 2,
+            backgroundColor: Colors.brown,
+            selectedItemColor: Colors.black,
+            type: BottomNavigationBarType.fixed,
+            showUnselectedLabels: false,
+            showSelectedLabels: true,
+            currentIndex: 2,
 //-----------
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person, color: Color(0xFF0a0908)),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.leaderboard, color: Color(0xFF0a0908)),
-              label: 'Leaderboard',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Color(0xFF0a0908)),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.card_giftcard, color: Color(0xFF0a0908)),
-              label: 'Rewards',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.share, color: Color(0xFF0a0908)),
-              label: 'Share',
-            )
-          ],
-          onTap: (int index) {
-            if (index == 2) {
-              Navigator.pop(context);
-            }
-          },
-        ));
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person, color: Color(0xFF0a0908)),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.leaderboard, color: Color(0xFF0a0908)),
+                label: 'Leaderboard',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home, color: Color(0xFF0a0908)),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.card_giftcard, color: Color(0xFF0a0908)),
+                label: 'Rewards',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.share, color: Color(0xFF0a0908)),
+                label: 'Share',
+              )
+            ],
+            onTap: (int index) {
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfilePage(
+                            username: username,
+                          )),
+                );
+              } else if (index == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LeaderboardPage(username: username)),
+                );
+              } else if (index == 2) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeNewPage(
+                            username: username,
+                          )),
+                );
+              }
+            }));
   }
 
   AppBar appBar() {

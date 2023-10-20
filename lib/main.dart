@@ -34,7 +34,9 @@ class MyApp extends StatelessWidget {
         "/walk": (context) => const WalkingPage(
               username: '',
             ),
-        "/car": (context) => const CarpoolPage(),
+        "/car": (context) => const CarpoolPage(
+              username: '',
+            ),
         "/login": (context) => const LoginPage(),
         "/signup": (context) => const SignUpPage(),
         "/cycle": (context) => const CyclingPage(

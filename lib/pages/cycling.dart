@@ -3,6 +3,8 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecohopv1/pages/leaderboard.dart';
+import 'package:ecohopv1/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:convert';
@@ -45,6 +47,7 @@ class _CyclingPageState extends State<CyclingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: appBar(),
       backgroundColor: Color(0xFFD8F3DC),
       body: Column(
@@ -198,39 +201,58 @@ class _CyclingPageState extends State<CyclingPage> {
 
   Widget bottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: Colors.brown,
-      selectedItemColor: Colors.black,
-      type: BottomNavigationBarType.fixed,
-      showUnselectedLabels: false,
-      showSelectedLabels: true,
-      currentIndex: 2,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person, color: Color(0xFF0a0908)),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.leaderboard, color: Color(0xFF0a0908)),
-          label: 'Leaderboard',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home, color: Color(0xFF0a0908)),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.card_giftcard, color: Color(0xFF0a0908)),
-          label: 'Rewards',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.share, color: Color(0xFF0a0908)),
-          label: 'Share',
-        )
-      ],
-      onTap: (int index) {
-        if (index == 2) {
-          Navigator.pop(context);
-        }
-      },
-    );
+        backgroundColor: Colors.brown,
+        selectedItemColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: false,
+        showSelectedLabels: true,
+        currentIndex: 2,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person, color: Color(0xFF0a0908)),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.leaderboard, color: Color(0xFF0a0908)),
+            label: 'Leaderboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Color(0xFF0a0908)),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.card_giftcard, color: Color(0xFF0a0908)),
+            label: 'Rewards',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.share, color: Color(0xFF0a0908)),
+            label: 'Share',
+          )
+        ],
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ProfilePage(username: username)),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => LeaderboardPage(
+                        username: username,
+                      )),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomeNewPage(
+                        username: username,
+                      )),
+            );
+          }
+        });
   }
 }
