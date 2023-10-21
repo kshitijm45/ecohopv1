@@ -1,5 +1,6 @@
 import 'package:ecohopv1/pages/home.dart';
 import 'package:ecohopv1/pages/leaderboard.dart';
+import 'package:ecohopv1/pages/carpoolresults.dart';
 import 'package:ecohopv1/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,11 +16,14 @@ class CarpoolPage extends StatefulWidget {
 class _CarpoolPageState extends State<CarpoolPage> {
   final people = ['1', '2', '3', '4', '5', '6'];
   final cartype = ['Mini', 'Sedan', 'SUV'];
+  TextEditingController fromLocationCtrl = TextEditingController();
+  TextEditingController toLocationCtrl = TextEditingController();
   String username;
   _CarpoolPageState({required this.username});
   String? val;
 
   String? vals;
+
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
       value: item,
       child: Text(
@@ -49,8 +53,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
                   color: Color.fromRGBO(0, 0, 0, 1),
                   fontFamily: 'Nunito',
                   fontSize: 20,
-                  letterSpacing:
-                      0 /*percentages not used in flutter. defaulting to zero*/,
+                  letterSpacing: 0,
                   fontWeight: FontWeight.normal,
                   height: 1,
                 ),
@@ -59,6 +62,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
             Container(
               margin: const EdgeInsets.only(left: 15, right: 15),
               child: TextField(
+                controller: fromLocationCtrl,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -82,8 +86,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
                   color: Color.fromRGBO(0, 0, 0, 1),
                   fontFamily: 'Nunito',
                   fontSize: 20,
-                  letterSpacing:
-                      0 /*percentages not used in flutter. defaulting to zero*/,
+                  letterSpacing: 0,
                   fontWeight: FontWeight.normal,
                   height: 1,
                 ),
@@ -92,6 +95,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
             Container(
               margin: const EdgeInsets.only(left: 15, right: 15),
               child: TextField(
+                controller: toLocationCtrl,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -109,124 +113,26 @@ class _CarpoolPageState extends State<CarpoolPage> {
             Row(
               children: [
                 Container(
-                    margin:
-                        const EdgeInsets.only(left: 10, right: 140, top: 20),
-                    child: const Text(
-                      'Number Of People:',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(0, 0, 0, 1),
-                          fontFamily: 'Karla',
-                          fontSize: 15,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1),
-                    )),
-                Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    child: const Text(
-                      'Type of Vehicle:',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: Color.fromRGBO(0, 0, 0, 1),
-                          fontFamily: 'Karla',
-                          fontSize: 15,
-                          letterSpacing:
-                              0 /*percentages not used in flutter. defaulting to zero*/,
-                          fontWeight: FontWeight.normal,
-                          height: 1),
-                    )),
+                  margin: const EdgeInsets.only(left: 150, top: 20),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      String fromLocation = fromLocationCtrl.text;
+                      String toLocation = toLocationCtrl.text;
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CarPoolResults(
+                                    username: username,
+                                    fromLocation: fromLocation,
+                                    toLocation: toLocation,
+                                  )));
+                    },
+                    child: const Text('Enter'),
+                  ),
+                ),
               ],
             ),
-            Row(
-              children: [
-                Container(
-                    width: 100,
-                    margin:
-                        const EdgeInsets.only(left: 20, right: 140, top: 20),
-                    child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: vals,
-                        items: people.map(buildMenuItem).toList(),
-                        onChanged: (vals) => setState(() {
-                              this.vals = vals;
-                            }))),
-                Container(
-                    width: 100,
-                    margin: const EdgeInsets.only(left: 15, top: 20),
-                    child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: val,
-                        items: cartype.map(buildmenuItem).toList(),
-                        onChanged: (val) => setState(() {
-                              this.val = val;
-                            }))),
-              ],
-            ),
-            Container(
-                width: 346,
-                height: 86,
-                margin: const EdgeInsets.only(left: 30, top: 10),
-                child: Stack(children: <Widget>[
-                  Positioned(
-                      top: 0,
-                      left: 0,
-                      child: Container(
-                          width: 346,
-                          height: 86,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                            color: Color.fromRGBO(245, 231, 224, 1),
-                          ))),
-                ])),
-            Container(
-                width: 346,
-                height: 86,
-                margin: const EdgeInsets.only(left: 30, top: 10),
-                child: Stack(children: <Widget>[
-                  Positioned(
-                      top: 0,
-                      left: 0,
-                      child: Container(
-                          width: 346,
-                          height: 86,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                            color: Color.fromRGBO(245, 231, 224, 1),
-                          ))),
-                ])),
-            Container(
-                width: 346,
-                height: 86,
-                margin: const EdgeInsets.only(left: 30, top: 10),
-                child: Stack(children: <Widget>[
-                  Positioned(
-                      top: 0,
-                      left: 0,
-                      child: Container(
-                          width: 346,
-                          height: 86,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                            color: Color.fromRGBO(245, 231, 224, 1),
-                          ))),
-                ]))
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -317,6 +223,24 @@ class _CarpoolPageState extends State<CarpoolPage> {
             alignment: Alignment.topLeft,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ReusbaleRow extends StatelessWidget {
+  String value;
+  ReusbaleRow({Key? key, required this.value}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(value),
+        ],
       ),
     );
   }

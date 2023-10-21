@@ -1,9 +1,11 @@
 import 'package:ecohopv1/pages/carpool.dart';
+import 'package:ecohopv1/pages/challenges.dart';
 import 'package:ecohopv1/pages/cycling.dart';
 import 'package:ecohopv1/pages/landing.dart';
 import 'package:ecohopv1/pages/loginpage.dart';
 import 'package:ecohopv1/pages/signup.dart';
 import 'package:ecohopv1/pages/walking.dart';
+import 'package:ecohopv1/pages/walkingpedo.dart';
 import 'package:flutter/material.dart';
 import 'package:ecohopv1/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,7 +14,6 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   runApp(const MyApp());
 }
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/land",
+      initialRoute: "/pedo",
       routes: {
         "/land": (context) => const LandingPage(),
         "/home": (context) => const HomeNewPage(
@@ -40,6 +41,12 @@ class MyApp extends StatelessWidget {
         "/signup": (context) => const SignUpPage(),
         "/cycle": (context) => const CyclingPage(
               username: '',
+            ),
+        "/pedo": (context) => const WalkingPedo(
+              username: "",
+            ),
+        "/chal": (context) => const ChallengesPage(
+              username: "",
             ),
       },
     );

@@ -23,6 +23,9 @@ class _ProfilePageState extends State<ProfilePage> {
   File? profilepic;
   String uid = FirebaseAuth.instance.currentUser!.uid;
   String piclink = "";
+  String points = "";
+
+  int userIndex = -1;
 
   _ProfilePageState({required this.username});
   void initState() {
@@ -31,11 +34,24 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void asyncfunction() async {
-    DocumentSnapshot documentSnapshot =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    setState(() {
-      piclink = documentSnapshot['profilepic'];
-    });
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .orderBy('points', descending: true)
+        .get();
+
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      if (querySnapshot.docs[i].id == uid) {
+        userIndex = i;
+        break;
+      }
+    }
+
+    if (userIndex != -1) {
+      setState(() {
+        piclink = querySnapshot.docs[userIndex]['profilepic'];
+        points = querySnapshot.docs[userIndex]['points'].toString();
+      });
+    }
   }
 
   void sameImage(XFile selectedImage) async {
@@ -183,14 +199,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 left: 79,
                 top: 242,
                 child: SizedBox(
                   width: 229,
                   height: 49,
                   child: Text(
-                    'Arnav Chugh',
+                    username,
                     style: TextStyle(
                       color: Color(0xFF582F0E),
                       fontSize: 32,
@@ -233,7 +249,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      const Positioned(
+                      Positioned(
                         left: 35,
                         top: 19,
                         child: SizedBox(
@@ -251,14 +267,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      const Positioned(
+                      Positioned(
                         left: 38,
                         top: 45,
                         child: SizedBox(
                           width: 78,
                           height: 60.07,
                           child: Text(
-                            '40',
+                            points.toString(),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 48,
@@ -295,7 +311,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      const Positioned(
+                      Positioned(
                         left: 27,
                         top: 18,
                         child: SizedBox(
@@ -313,14 +329,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      const Positioned(
+                      Positioned(
                         left: 29,
                         top: 45,
                         child: SizedBox(
                           width: 104,
                           height: 62,
                           child: Text(
-                            '#4',
+                            (userIndex + 1).toString(),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 48,
@@ -726,7 +742,7 @@ class _ProfilePageState extends State<ProfilePage> {
               context,
               MaterialPageRoute(
                   builder: (context) => HomeNewPage(
-                        username: "",
+                        username: username,
                       )),
             );
           }

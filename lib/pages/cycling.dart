@@ -24,23 +24,24 @@ class _CyclingPageState extends State<CyclingPage> {
   TextEditingController myController = TextEditingController();
   String displayedMessage = ' ';
   String username;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   _CyclingPageState({required this.username});
   void update(int data) async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection("users") // Replace with your actual collection name
-        .where("username", isEqualTo: username)
-        .get();
-    if (querySnapshot.docs.isNotEmpty) {
-      DocumentSnapshot documentSnapshot = querySnapshot.docs[0];
-      String documentId = querySnapshot.docs[0].id;
-      var oldpoints = documentSnapshot['points'];
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(documentId)
-          .update({"points": oldpoints + data});
-      print('Document data: $data');
-    } else {
-      print('No document found with the provided parameter.');
+    try {
+      var documentReference =
+          FirebaseFirestore.instance.collection("users").doc(uid);
+
+      var documentSnapshot = await documentReference.get();
+
+      if (documentSnapshot.exists) {
+        var oldpoints = documentSnapshot['points'];
+        await documentReference.update({"points": oldpoints + data});
+        print('Document data updated: $data');
+      } else {
+        print('Document with ID $uid does not exist.');
+      }
+    } catch (error) {
+      print('Error updating document: $error');
     }
   }
 
@@ -225,8 +226,8 @@ class _CyclingPageState extends State<CyclingPage> {
             label: 'Rewards',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.share, color: Color(0xFF0a0908)),
-            label: 'Share',
+            icon: Icon(Icons.emoji_events, color: Color(0xFF0a0908)),
+            label: 'Challenges',
           )
         ],
         onTap: (int index) {

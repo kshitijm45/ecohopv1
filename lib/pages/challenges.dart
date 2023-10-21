@@ -1,58 +1,50 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecohopv1/pages/home.dart';
+import 'package:ecohopv1/pages/leaderboard.dart';
 import 'package:ecohopv1/pages/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class LeaderboardPage extends StatefulWidget {
+class ChallengesPage extends StatefulWidget {
   final String username;
-  const LeaderboardPage({super.key, required this.username});
+  const ChallengesPage({super.key, required this.username});
 
   @override
-  State<LeaderboardPage> createState() =>
-      _LeaderboardPageState(username: username);
+  State<ChallengesPage> createState() =>
+      _ChallengesPageState(username: username);
 }
 
-class _LeaderboardPageState extends State<LeaderboardPage> {
+class _ChallengesPageState extends State<ChallengesPage> {
   String username;
-  _LeaderboardPageState({required this.username});
+  _ChallengesPageState({required this.username});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appBar(),
         backgroundColor: Color(0xFFD8F3DC),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .orderBy("points", descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.hasData && snapshot.data != null) {
-                    return Expanded(
-                        child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        Map<String, dynamic> userMap =
-                            snapshot.data!.docs[index].data()
-                                as Map<String, dynamic>;
-                        return ListTile(
-                          leading: Text((index + 1).toString()),
-                          title: Text(userMap["username"]),
-                          trailing: Text(userMap["points"].toString()),
-                        );
-                      },
-                    ));
-                  } else {
-                    return Text("No data!");
-                  }
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              })
-        ]),
+        body: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.only(top: 50, left: 10),
+                child: SvgPicture.asset("assets/icons/challenges.svg")),
+            Container(
+                margin: EdgeInsets.only(top: 50, left: 20),
+                child: SvgPicture.asset("assets/icons/progress.svg"))
+            // Container(
+            //     margin: EdgeInsets.only(left: 42, top: 42),
+            //     child: Text(
+            //       "Daily Quests",
+            //       style: TextStyle(fontSize: 20),
+            //     )),
+            // Container(
+            //     width: 49,
+            //     height: 42,
+            //     margin: EdgeInsets.only(left: 18, top: 45),
+            //     decoration: BoxDecoration(
+            //       color: Color.fromRGBO(82, 183, 136, 1),
+            //       borderRadius: BorderRadius.all(Radius.elliptical(49, 42)),
+            //     ))
+          ],
+        ),
         bottomNavigationBar: bottomNavigationBar());
   }
 
@@ -60,7 +52,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
     return AppBar(
       toolbarHeight: 100,
       title: const Text(
-        'Leaderboard',
+        'Challenges',
         style: TextStyle(
           color: Colors.black,
           fontSize: 20,
@@ -79,7 +71,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
             color: const Color(0xFFF5E7E0),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(Icons.leaderboard, color: Colors.black, size: 30),
+          child: Icon(Icons.emoji_events, color: Colors.black, size: 30),
         ),
       ),
     );
@@ -92,7 +84,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: false,
         showSelectedLabels: true,
-        currentIndex: 1,
+        currentIndex: 4,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.person, color: Color(0xFF0a0908)),
