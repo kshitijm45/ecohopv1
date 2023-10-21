@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecohopv1/pages/challenges.dart';
 import 'package:ecohopv1/pages/leaderboard.dart';
 import 'package:ecohopv1/pages/profile.dart';
 import 'package:flutter/material.dart';
@@ -152,10 +153,25 @@ class _WalkingPageState extends State<WalkingPage> {
                   height: 100,
                   width: 10,
                 ),
-                SvgPicture.asset(
-                  'assets/icons/map (1).svg',
-                  //width: 10,
-                  height: 218,
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 30, right: 100, left: 20),
+                      child: SvgPicture.asset("assets/icons/walk.svg"),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 30, top: 30),
+                      child: SvgPicture.asset("assets/icons/circle.svg"),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 3, left: 10),
+                  child: SvgPicture.asset(
+                    'assets/icons/map (1).svg',
+                    //width: 10,
+                    height: 218,
+                  ),
                 ),
               ],
             ),
@@ -192,7 +208,7 @@ class _WalkingPageState extends State<WalkingPage> {
           child: SvgPicture.asset(
             'assets/icons/walking.svg', // Provide the correct path to your SVG file
             alignment: Alignment.centerRight,
-            height: 55,
+            height: 45,
             width: 35,
           ),
         ),
@@ -250,6 +266,14 @@ class _WalkingPageState extends State<WalkingPage> {
               context,
               MaterialPageRoute(
                   builder: (context) => HomeNewPage(
+                        username: username,
+                      )),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChallengesPage(
                         username: username,
                       )),
             );

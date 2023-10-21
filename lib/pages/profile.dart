@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecohopv1/pages/challenges.dart';
 import 'package:ecohopv1/pages/home.dart';
 import 'package:ecohopv1/pages/leaderboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -77,8 +78,8 @@ class _ProfilePageState extends State<ProfilePage> {
       resizeToAvoidBottomInset: false,
       body: Column(children: [
         Container(
-          width: 390,
-          height: 780,
+          width: 500,
+          height: 784,
           clipBehavior: Clip.antiAlias,
           decoration: const BoxDecoration(color: Color(0xF0D8F3DC)),
           child: Stack(
@@ -87,8 +88,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 left: 0,
                 top: 0,
                 child: Container(
-                  width: 390,
-                  height: 309,
+                  width: 412,
+                  height: 320,
                   decoration: const BoxDecoration(
                     color: Color(0xFFF5E7E0),
                     boxShadow: [
@@ -189,7 +190,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 left: 29,
                 top: 12,
                 child: Text(
-                  '10:00',
+                  '',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -201,18 +202,21 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Positioned(
                 left: 79,
-                top: 242,
+                top: 238,
                 child: SizedBox(
-                  width: 229,
-                  height: 49,
-                  child: Text(
-                    username,
-                    style: TextStyle(
-                      color: Color(0xFF582F0E),
-                      fontSize: 32,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w800,
-                      height: 0,
+                  width: 250,
+                  height: 73,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 65, top: 30),
+                    child: Text(
+                      username,
+                      style: TextStyle(
+                        color: Color(0xFF582F0E),
+                        fontSize: 32,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w800,
+                        height: 0,
+                      ),
                     ),
                   ),
                 ),
@@ -317,14 +321,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: SizedBox(
                           width: 91,
                           height: 29,
-                          child: Text(
-                            'Position',
-                            style: TextStyle(
-                              color: Color(0xFF582F0E),
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w800,
-                              height: 0,
+                          child: Container(
+                            margin: EdgeInsets.only(left: 6),
+                            child: Text(
+                              'Position',
+                              style: TextStyle(
+                                color: Color(0xFF582F0E),
+                                fontSize: 20,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w800,
+                                height: 0,
+                              ),
                             ),
                           ),
                         ),
@@ -335,14 +342,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: SizedBox(
                           width: 104,
                           height: 62,
-                          child: Text(
-                            (userIndex + 1).toString(),
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 48,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w800,
-                              height: 0,
+                          child: Container(
+                            margin: EdgeInsets.only(left: 25),
+                            child: Text(
+                              (userIndex + 1).toString(),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 48,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w800,
+                                height: 0,
+                              ),
                             ),
                           ),
                         ),
@@ -385,20 +395,25 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Positioned(
-                        left: 99,
-                        top: 6,
+                        left: 0,
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.person,
-                              color: Colors.black,
+                            Container(
+                              margin: EdgeInsets.only(right: 57),
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.black,
+                              ),
                             ),
                             SizedBox(
                               width: 8,
                             ),
-                            SizedBox(
-                              width: 127,
-                              height: 29,
+                            Container(
+                              margin: EdgeInsets.only(right: 69),
                               child: Text(
                                 'Your Details',
                                 style: TextStyle(
@@ -462,21 +477,26 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      const Positioned(
-                        left: 99,
-                        top: 13,
+                      Positioned(
+                        left: 0,
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.notifications,
-                              color: Colors.black,
+                            Container(
+                              margin: EdgeInsets.only(right: 60),
+                              child: Icon(
+                                Icons.notifications,
+                                color: Colors.black,
+                              ),
                             ),
                             SizedBox(
                               width: 8,
                             ),
-                            SizedBox(
-                              width: 171,
-                              height: 38,
+                            Container(
+                              margin: EdgeInsets.only(right: 65),
                               child: Text(
                                 'Notifications',
                                 style: TextStyle(
@@ -559,21 +579,27 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: const Stack(children: []),
                         ),
                       ),
-                      const Positioned(
-                        left: 106,
-                        top: 9,
+                      Positioned(
+                        left: 0, //altered
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
                         child: Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, //added alignment
                           children: [
-                            Icon(
-                              Icons.logout,
-                              color: Colors.black,
+                            Container(
+                              margin: EdgeInsets.only(right: 70),
+                              child: Icon(
+                                Icons.logout,
+                                color: Colors.black,
+                              ),
                             ),
                             SizedBox(
-                              width: 8,
+                              width: 8, //removed one sizebox
                             ),
-                            SizedBox(
-                              width: 97,
-                              height: 39,
+                            Container(
+                              margin: EdgeInsets.only(right: 90),
                               child: Text(
                                 'Log Out',
                                 style: TextStyle(
@@ -623,21 +649,26 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      const Positioned(
-                        left: 109,
-                        top: 7,
+                      Positioned(
+                        left: 0,
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.lock,
-                              color: Colors.black,
+                            Container(
+                              margin: EdgeInsets.only(right: 75),
+                              child: Icon(
+                                Icons.lock,
+                                color: Colors.black,
+                              ),
                             ),
                             SizedBox(
                               width: 8,
                             ),
-                            SizedBox(
-                              width: 106,
-                              height: 29,
+                            Container(
+                              margin: EdgeInsets.only(right: 90),
                               child: Text(
                                 'Privacy',
                                 style: TextStyle(
@@ -720,8 +751,8 @@ class _ProfilePageState extends State<ProfilePage> {
             label: 'Rewards',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.share, color: Color(0xFF0a0908)),
-            label: 'Share',
+            icon: Icon(Icons.emoji_events, color: Color(0xFF0a0908)),
+            label: 'Challenges',
           )
         ],
         onTap: (int index) {
@@ -742,6 +773,14 @@ class _ProfilePageState extends State<ProfilePage> {
               context,
               MaterialPageRoute(
                   builder: (context) => HomeNewPage(
+                        username: username,
+                      )),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChallengesPage(
                         username: username,
                       )),
             );

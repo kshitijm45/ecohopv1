@@ -1,3 +1,5 @@
+import 'package:ecohopv1/pages/carpool.dart';
+import 'package:ecohopv1/pages/challenges.dart';
 import 'package:ecohopv1/pages/cycling.dart';
 import 'package:ecohopv1/pages/leaderboard.dart';
 import 'package:ecohopv1/pages/profile.dart';
@@ -101,7 +103,7 @@ class HomeNewPage extends StatelessWidget {
           //                   fontFamily: 'Nunito',
           //                   fontSize: 20,
           //                   letterSpacing:
-          //                       0 /*percentages not used in flutter. defaulting to zero*/,
+          //                       0 /percentages not used in flutter. defaulting to zero/,
           //                   fontWeight: FontWeight.normal,
           //                   height: 1),
           //             )),
@@ -116,7 +118,7 @@ class HomeNewPage extends StatelessWidget {
           //                   fontFamily: 'Nunito',
           //                   fontSize: 20,
           //                   letterSpacing:
-          //                       0 /*percentages not used in flutter. defaulting to zero*/,
+          //                       0 /percentages not used in flutter. defaulting to zero/,
           //                   fontWeight: FontWeight.normal,
           //                   height: 1),
           //             )),
@@ -146,7 +148,7 @@ class HomeNewPage extends StatelessWidget {
           //                   fontFamily: 'Nunito',
           //                   fontSize: 20,
           //                   letterSpacing:
-          //                       0 /*percentages not used in flutter. defaulting to zero*/,
+          //                       0 /percentages not used in flutter. defaulting to zero/,
           //                   fontWeight: FontWeight.normal,
           //                   height: 1),
           //             )),
@@ -191,7 +193,7 @@ class HomeNewPage extends StatelessWidget {
           //                   fontFamily: 'Nunito',
           //                   fontSize: 12,
           //                   letterSpacing:
-          //                       0 /*percentages not used in flutter. defaulting to zero*/,
+          //                       0 /percentages not used in flutter. defaulting to zero/,
           //                   fontWeight: FontWeight.normal,
           //                   height: 1),
           //             )),
@@ -206,7 +208,7 @@ class HomeNewPage extends StatelessWidget {
           //                   fontFamily: 'Nunito',
           //                   fontSize: 12,
           //                   letterSpacing:
-          //                       0 /*percentages not used in flutter. defaulting to zero*/,
+          //                       0 /percentages not used in flutter. defaulting to zero/,
           //                   fontWeight: FontWeight.normal,
           //                   height: 1),
           //             )),
@@ -259,9 +261,12 @@ class HomeNewPage extends StatelessWidget {
                   )),
               GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
+                    Navigator.push(
                       context,
-                      "/car",
+                      MaterialPageRoute(
+                          builder: (context) => CarpoolPage(
+                                username: username,
+                              )),
                     );
                   },
                   child: Container(
@@ -338,8 +343,8 @@ class HomeNewPage extends StatelessWidget {
                 label: 'Rewards',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.share, color: Color(0xFF0a0908)),
-                label: 'Share',
+                icon: Icon(Icons.emoji_events, color: Color(0xFF0a0908)),
+                label: 'Challenges',
               )
             ],
             onTap: (int index) {
@@ -362,6 +367,14 @@ class HomeNewPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => HomeNewPage(
+                            username: username,
+                          )),
+                );
+              } else if (index == 4) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChallengesPage(
                             username: username,
                           )),
                 );

@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecohopv1/pages/challenges.dart';
 import 'package:ecohopv1/pages/leaderboard.dart';
 import 'package:ecohopv1/pages/profile.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +41,8 @@ class _CarPoolResultsState extends State<CarPoolResults> {
 
   var data;
   Future<void> getProductsApi() async {
-    final response = await http
-        .get(Uri.parse('http://http://192.168.56.1/:8080/getAllusers'));
+    final response =
+        await http.get(Uri.parse('http://192.168.56.1:8080/getAllusers'));
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
@@ -70,20 +71,30 @@ class _CarPoolResultsState extends State<CarPoolResults> {
                       itemCount: data.length,
                       itemBuilder: (context, index) {
                         return Card(
-                          child: Column(
-                            children: [
-                              ReusbaleRow(
-                                value: data[index]['id'].toString(),
+                            elevation: 5, // Add a shadow to the card
+                            margin: EdgeInsets.all(
+                                10), // Add some margin around the card
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  10), // Add some padding inside the card
+                              child: Column(
+                                children: [
+                                  ReusbaleRow(
+                                    value: data[index]['id'].toString(),
+                                    username: username,
+                                  ),
+                                  ReusbaleRow(
+                                    value:
+                                        data[index]['companyName'].toString(),
+                                    username: username,
+                                  ),
+                                  ReusbaleRow(
+                                    value: data[index]['price'].toString(),
+                                    username: username,
+                                  ),
+                                ],
                               ),
-                              ReusbaleRow(
-                                value: data[index]['companyName'].toString(),
-                              ),
-                              ReusbaleRow(
-                                value: data[index]['price'].toString(),
-                              ),
-                            ],
-                          ),
-                        );
+                            ));
                       });
                 }
               },
@@ -155,8 +166,8 @@ class _CarPoolResultsState extends State<CarPoolResults> {
             label: 'Rewards',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.share, color: Color(0xFF0a0908)),
-            label: 'Share',
+            icon: Icon(Icons.emoji_events, color: Color(0xFF0a0908)),
+            label: 'Challenges',
           )
         ],
         onTap: (int index) {
@@ -182,6 +193,14 @@ class _CarPoolResultsState extends State<CarPoolResults> {
                         username: username,
                       )),
             );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChallengesPage(
+                        username: username,
+                      )),
+            );
           }
         });
   }
@@ -189,7 +208,9 @@ class _CarPoolResultsState extends State<CarPoolResults> {
 
 class ReusbaleRow extends StatelessWidget {
   String value;
-  ReusbaleRow({Key? key, required this.value}) : super(key: key);
+  String username;
+  ReusbaleRow({Key? key, required this.value, required this.username})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

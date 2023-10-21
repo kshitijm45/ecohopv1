@@ -24,8 +24,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+      ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/pedo",
+      initialRoute: "/land",
       routes: {
         "/land": (context) => const LandingPage(),
         "/home": (context) => const HomeNewPage(

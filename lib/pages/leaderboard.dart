@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecohopv1/pages/challenges.dart';
 import 'package:ecohopv1/pages/home.dart';
 import 'package:ecohopv1/pages/profile.dart';
 import 'package:flutter/material.dart';
@@ -20,39 +21,43 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
     return Scaffold(
         appBar: appBar(),
         backgroundColor: Color(0xFFD8F3DC),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .orderBy("points", descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.hasData && snapshot.data != null) {
-                    return Expanded(
-                        child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        Map<String, dynamic> userMap =
-                            snapshot.data!.docs[index].data()
-                                as Map<String, dynamic>;
-                        return ListTile(
-                          leading: Text((index + 1).toString()),
-                          title: Text(userMap["username"]),
-                          trailing: Text(userMap["points"].toString()),
-                        );
-                      },
-                    ));
+        body: Container(
+          margin: EdgeInsets.only(top: 30),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .orderBy("points", descending: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.active) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return Expanded(
+                          child: ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          Map<String, dynamic> userMap =
+                              snapshot.data!.docs[index].data()
+                                  as Map<String, dynamic>;
+                          return ListTile(
+                            leading: Text((index + 1).toString()),
+                            title: Text(userMap["username"]),
+                            trailing: Text(userMap["points"].toString()),
+                          );
+                        },
+                      ));
+                    } else {
+                      return Text("No data!");
+                    }
                   } else {
-                    return Text("No data!");
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              })
-        ]),
+                })
+          ]),
+        ),
         bottomNavigationBar: bottomNavigationBar());
   }
 
@@ -135,6 +140,14 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
               context,
               MaterialPageRoute(
                   builder: (context) => HomeNewPage(
+                        username: username,
+                      )),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChallengesPage(
                         username: username,
                       )),
             );

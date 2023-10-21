@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecohopv1/pages/challenges.dart';
 import 'package:ecohopv1/pages/leaderboard.dart';
 import 'package:ecohopv1/pages/profile.dart';
 import 'package:flutter/material.dart';
@@ -250,6 +251,14 @@ class _CyclingPageState extends State<CyclingPage> {
               context,
               MaterialPageRoute(
                   builder: (context) => HomeNewPage(
+                        username: username,
+                      )),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChallengesPage(
                         username: username,
                       )),
             );

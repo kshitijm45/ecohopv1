@@ -130,6 +130,14 @@ class _ChallengesPageState extends State<ChallengesPage> {
                         username: username,
                       )),
             );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChallengesPage(
+                        username: username,
+                      )),
+            );
           }
         });
   }
